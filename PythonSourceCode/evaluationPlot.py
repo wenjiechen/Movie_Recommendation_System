@@ -1,0 +1,89 @@
+'''
+Created on May 20, 2013
+
+@author: WnejieChen
+'''
+from random import shuffle
+from svmutil import *
+import os
+import pylab as pl
+
+def myRange(start,end,step):
+    while start <= end:
+        yield start
+        start += step
+
+def plottest():
+    x=[i for i in myRange(10,100,10)]
+    y =[i for i in myRange(5,50,5)]
+    plot1,=pl.plot(x,y,'g')
+    x2=[i for i in myRange(100,1000,100)]
+    y2 =[i for i in myRange(50,500,50)]  
+    plot2, =pl.plot(x2,y2,'r')      
+    pl.ylabel('Mean Absolute Error')# make axis labels
+    pl.xlabel('Number Of Nerighbor')
+    pl.title('Validation Error VS C')
+    pl.legend([plot1,plot2], ('d=1', 'd=2'), 'best', numpoints=1)
+    pl.show()
+
+def plotRMSE():
+    x=[i for i in myRange(10,100,10)]
+    PEARSON = [0.8130394091298804, 0.773320828528657, 0.7654934873109944, 0.7703070702638888, 0.7792054075400536, 0.7939276776945301, 0.8045012022246891, 0.8113992796735394, 0.8180638391212228, 0.8245436140196227]
+    plot1,=pl.plot(x,PEARSON,':k')
+    plot1,=pl.plot(x,PEARSON,'bo')
+
+    SPEARSON = [0.9347501214654087, 0.8992420549540919, 0.8824545467825352, 0.878743489884513, 0.8873039958599539, 0.8828231448420867, 0.8811238922507084, 0.8778637450844177, 0.8798842415677949, 0.8827911865105508]
+    plot2,=pl.plot(x,SPEARSON,':k')
+    plot2,=pl.plot(x,SPEARSON,'mo')
+    
+    TANIMOTO = [1.064075674628674, 1.0424595070138876, 1.0347263264549116, 1.0290620922950957, 1.0232330373535694, 1.0211460999334756, 1.0183687507742578, 1.0169994747036066, 1.0152223264748026, 1.0145315225408589]
+    plot3,=pl.plot(x,TANIMOTO,':k')
+    plot3,=pl.plot(x,TANIMOTO,'go')
+    
+    LOGLIKELIHOOD = [1.0650546023708947, 1.0370844152378016, 1.0296913783046422, 1.0260298634340976, 1.0207102922028364, 1.0187948532306554, 1.0159128030703448, 1.0157480507114895, 1.0157826002901706, 1.0145367177549058]
+    plot4,=pl.plot(x,LOGLIKELIHOOD,':k')
+    plot4,=pl.plot(x,LOGLIKELIHOOD,'ro')
+
+    EUCLIDEAN = [0.411620081933281, 0.48795451749647883, 0.5309089712330693, 0.5632709623520905, 0.590798693064538, 0.6210480511223136, 0.6401960771604781, 0.656241774684921, 0.6724854152926362, 0.6884209057306797]
+    plot5,=pl.plot(x,EUCLIDEAN,':k')
+    plot5,=pl.plot(x,EUCLIDEAN,'yo')
+    
+    pl.ylabel('Root Mean Squared Error')# make axis labels
+    pl.xlabel('Number Of Neighbors')
+    pl.title('RMSE VS Number of Neighbors')
+    pl.legend([plot1,plot2,plot3,plot4,plot5], ('PEARSON', 'SPEARSON','TANIMOTO','LOGLIKELIHOOD','EUCLIDEAN'), 'best', numpoints=1)
+    pl.show()
+    
+def plotMAE():
+    x=[i for i in myRange(10,100,10)]
+    PEARSON = [0.6160364296519184, 0.5886126613959424, 0.5899184788061197, 0.5989346024734935, 0.6006094942130619, 0.6134919025803318, 0.6248214607069958, 0.6284746882004497, 0.634402143769108, 0.6401212905109108]
+    plot1,=pl.plot(x,PEARSON,':k')
+    plot1,=pl.plot(x,PEARSON,'bo')
+
+    SPEARSON = [0.7077082262855104, 0.6858695756893941, 0.6772879931100451, 0.6732309793872975, 0.6808607163748543, 0.6790583703457108, 0.6801681032989767, 0.6786994505959227, 0.6803970734410584, 0.6840586207719043]
+    plot2,=pl.plot(x,SPEARSON,':k')
+    plot2,=pl.plot(x,SPEARSON,'mo')
+    
+    TANIMOTO = [0.8383659792647807, 0.8248926377006075, 0.819329147066581, 0.8159121519912297, 0.8125556289808734, 0.8117106482806143, 0.8100678692418456, 0.8092978785005074, 0.8084217980345265, 0.8083402780497554]
+    plot3,=pl.plot(x,TANIMOTO,':k')
+    plot3,=pl.plot(x,TANIMOTO,'go')
+    
+    LOGLIKELIHOOD = [0.8395363062331971, 0.8208859756768405, 0.8174414334488982, 0.8149831747566081, 0.8115734256294306, 0.8102398343218918, 0.8088948717675553, 0.8087984591450235, 0.8083562358484564, 0.8075430105767857]
+    plot4,=pl.plot(x,LOGLIKELIHOOD,':k')
+    plot4,=pl.plot(x,LOGLIKELIHOOD,'ro')
+
+    EUCLIDEAN = [0.23944475332474358, 0.31951889071215633, 0.36941080789087005, 0.4005354834648993, 0.4314309639889883, 0.45934980122815283, 0.47925018006927406, 0.4960275932382939, 0.511299818469912, 0.5264446016924825]
+    plot5,=pl.plot(x,EUCLIDEAN,':k')
+    plot5,=pl.plot(x,EUCLIDEAN,'yo')
+    
+    pl.ylabel('Mean Absolute Error ')# make axis labels
+    pl.xlabel('Number Of Neighbors')
+    pl.title('MAE VS Number of Neighbors')
+    pl.legend([plot1,plot2,plot3,plot4,plot5], ('PEARSON', 'SPEARSON','TANIMOTO','LOGLIKELIHOOD','EUCLIDEAN'), 'best', numpoints=1)
+    pl.show()
+        
+    
+if __name__ == '__main__':
+#     plottest()
+#     plotMAE()
+    plotRMSE()

@@ -1,0 +1,8 @@
+
+public enum Similarity {
+PEARSON,
+SPEARSON,
+TANIMOTO,
+LOGLIKELIHOOD,
+EUCLIDEAN,
+}
