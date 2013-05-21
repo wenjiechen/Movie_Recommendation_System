@@ -11,12 +11,12 @@ public class MahoutTest {
 	}
 	public static void main(String args[]) throws Exception {
 
-//		Long start = System.currentTimeMillis();
+		Long start = System.currentTimeMillis();
 		String fP1M = "D:/dataset/ml-1m/userItemRating1M.csv";
 		String fP100K = "D:/dataset/ml-100k/userItemRating100K.csv";
 //		String fP100K = "D:/dataset/ml-100k/userItemRating100KTest.csv";
 		String resultFilePath = "result.txt";
-/*
+
 		UserBasedRecommender UBrecommender;
 		Similarity[] sim = { Similarity.PEARSON,
 				Similarity.SPEARSON,
@@ -35,8 +35,8 @@ public class MahoutTest {
 				if (numOfNerghbor == 10 || numOfNerghbor == 100) {
 					res.append("numOfNerghbor = " + numOfNerghbor + "\n");
 				}
-//				res.append(UBrecommender.evaluate("average"));
-//				res.append(UBrecommender.evaluate("rms"));
+				res.append(UBrecommender.evaluate("average"));
+				res.append(UBrecommender.evaluate("rms"));
 				res.append(UBrecommender.evaluate("stats"));
 			}
 		}
@@ -52,8 +52,8 @@ public class MahoutTest {
 			IBrecommender = new ItemBasedRecommender(fP100K, s);
 			res.append("similarity:" + s +"\n");
 			System.out.println("similarity:" + s);
-//			res.append(IBrecommender.evaluate("average"));
-//			res.append(IBrecommender.evaluate("rms"));
+			res.append(IBrecommender.evaluate("average"));
+			res.append(IBrecommender.evaluate("rms"));
 			res.append(IBrecommender.evaluate("stats"));
 		}		
 				
@@ -78,22 +78,22 @@ public class MahoutTest {
 		System.out.println("slope one\n");
 		slopeOne.evaluate("average");
 		slopeOne.evaluate("rms");
-		*/
 		
-		/*
+		
+		
 		UserBasedRecommender UBrecommender = new UserBasedRecommender(fP100K, Similarity.PEARSON, 30);
-		List<RecommendedItem> recommendations = UBrecommender.recommend(10, 20);// 为用户10推荐10 ItemID
+		List<RecommendedItem> recommendations = UBrecommender.recommend(10, 20);// 
 		for (RecommendedItem recommendation : recommendations) {
 			System.out.println(recommendation);
 		}
 		
 		System.out.println("item based");
 		ItemBasedRecommender IBrecommender = new ItemBasedRecommender(fP100K, Similarity.PEARSON);
-		recommendations = IBrecommender.recommend(10, 20);// 为用户10推荐10 ItemID
+		recommendations = IBrecommender.recommend(10, 20);// 
 		for (RecommendedItem recommendation : recommendations) {
 			System.out.println(recommendation);
 		}
-		*/
+		
 		
 		Long start1 = System.currentTimeMillis();
 		UserBasedRecommender UBrecommender = new UserBasedRecommender(fP100K, Similarity.PEARSON, 20);
