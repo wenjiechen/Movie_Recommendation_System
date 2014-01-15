@@ -9,7 +9,8 @@ config python code on ubuntu
 dataset file is "u.data". If the 'u.data' in github doesn't work, please download
 
 2. install 'numpy' and 'python-mysqldb' package
-	install 'numpy', you need gcc. If you don't have,
+	install 'numpy', you need gcc. If you don't have gcc,
+
 	command: sudo apt-get install build-essential python-dev
 	
 	Use pip install 'numpy', command: sudo pip install numpy
