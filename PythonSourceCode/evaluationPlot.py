@@ -85,5 +85,5 @@ def plotMAE():
     
 if __name__ == '__main__':
 #     plottest()
-#     plotMAE()
+    plotMAE()
     plotRMSE()

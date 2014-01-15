@@ -3,10 +3,10 @@ Created on May 3, 2013
 
 @author: WnejieChen
 '''
-import MySQLdb as db
+import MySQLdb as db 
 import sys
 import operator
-import numpy as np
+import numpy as np 
 import math
 
 MAX = sys.maxint
@@ -50,6 +50,7 @@ def getitemAvgrating(mid):
              SELECT a1.rating 
              FROM avg_ratings AS a1
              WHERE a1.movie_id = %d""" %(mid)
+#    print mid;
     return executeSql(query)
 
 def getUserAvgRating(uid):
@@ -72,7 +73,7 @@ def getItemsNum(mid = ING):
     return items
 
 def cosine(v1,v2):
-    return np.dot(v1,v2)/(np.sqrt(np.dot(v1, v1)) * np.sqrt(np.dot(v2, v2)))
+    return np.dot(v1,v2)/(np.sqrt(np.dot(v1, v1)) * np.sqrt(np.dot(v2, v2))) 
 
 #rvs: 2 rating vectors
 #avgs: average rating for two 
@@ -166,7 +167,18 @@ def predicitScoresForOneUser(uid,mids,similarity = 'p'):
     predictions = {}
     for mid in mids:
         predictions[mid] = predictScoreForOneItem(mid,uid,userItemsDic,similarity)
+        print 'mid: %d, predictions: %f' %(mid,predictions[mid])
     return predictions
+
+def test2():
+    movie_num = 20
+    uid = 1
+    print 'get the predictions of first %d movies for user %d' %(movie_num,uid)
+    userItemsDic = getActiveUserItems(uid)
+    predictions = {}
+    for mid in range(1,movie_num+1):
+        predictions[mid] = predictScoreForOneItem(mid,uid,userItemsDic,'p')
+        print 'movie id: %d, predictions: %f' %(mid,predictions[mid])
           
 def test():
     items = getItemsNum()
@@ -174,9 +186,7 @@ def test():
     print 'predictions',predictions
 
 def main():
-#     test()
-    movies = getActiveUserItems(10);
-    print movies;
+    test2()
 
 if __name__ == '__main__':
     main()
