@@ -6,19 +6,24 @@ Created on May 3, 2013
 import MySQLdb
 import re
 import os
+import databaseConfig
 
 userNumG = 6040 
 itemNumG = 3952
 
-DATASET_PATH = 'D:/MovieLens_dataset/ml-100k/u.data'
+DATASET_PATH = databaseConfig.DATASET_PATH
+HOST = databaseConfig.HOST
+USER = databaseConfig.USER
+PW = databaseConfig.PW
+DATABASE = databaseConfig.DATABASE
 
 def createTables():
-    print 'create table "ratings" in database "MoiveLens100K"'
-    conn = MySQLdb.connect(host='localhost', user='root', passwd='1234')  
+    print 'create database "%s" and table "ratings" in it' %(DATABASE)
+    conn = MySQLdb.connect(host=HOST, user=USER, passwd=PW)  
     cursor = conn.cursor()  
     cursor.execute(""" DROP DATABASE IF EXISTS `MoiveLens100K`""")
-    cursor.execute("""CREATE DATABASE `MoiveLens100K`""")
-    conn.select_db('MoiveLens100K') 
+    cursor.execute("""CREATE DATABASE `%s`""" %(DATABASE)) 
+    conn.select_db(DATABASE) 
 
     cursor.execute("""
     CREATE TABLE `ratings` (
@@ -35,7 +40,7 @@ def createTables():
     
 def createTableForAvgRating():
     print 'create "avg_ratings" table'
-    conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
+    conn = MySQLdb.connect(db = DATABASE, host = HOST,user =USER,passwd = PW)
     cursor = conn.cursor()
     cursor.execute(""" DROP TABLE IF EXISTS `avg_ratings`""")
     cursor.execute("""
@@ -49,7 +54,7 @@ def createTableForAvgRating():
 
 def createTableForUserAvgRating():
     print 'create talbe "user_avg_ratings"'
-    conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
+    conn = MySQLdb.connect(db = DATABASE, host = HOST,user =USER,passwd = PW)
     cursor = conn.cursor()
     cursor.execute(""" DROP TABLE IF EXISTS `user_avg_ratings`""")
     cursor.execute("""
@@ -62,7 +67,7 @@ def createTableForUserAvgRating():
     cursor.close()
 
 def calculateUserAvgRating():
-    conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
+    conn = MySQLdb.connect(db = DATABASE, host = HOST,user =USER,passwd = PW)
     cursor = conn.cursor()
     for uid in range(1,userNumG+1):
         query = """SELECT AVG(rating)
@@ -80,7 +85,7 @@ def calculateUserAvgRating():
     cursor.close()
 
 def userAvgratingTest():
-    conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
+    conn = MySQLdb.connect(db = DATABASE, host = HOST,user =USER,passwd = PW)
     cursor = conn.cursor()
     uid = 1
     query = """
@@ -92,7 +97,7 @@ def userAvgratingTest():
     print res
 
 def calculateAvgRating():
-    conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
+    conn = MySQLdb.connect(db = DATABASE, host = HOST,user =USER,passwd = PW)
     cursor = conn.cursor()
     for mid in range(1,itemNumG+1):
         query = """SELECT AVG(rating)
@@ -119,9 +124,9 @@ def segmentTest():
 def importRatings():
     print 'import rating from dataset'
     fileName = DATASET_PATH
-    conn = MySQLdb.connect(host='localhost', user='root', passwd='1234')
+    conn = MySQLdb.connect(host=HOST, user=USER, passwd=PW)
     cursor = conn.cursor()
-    conn.select_db('MoiveLens100K') 
+    conn.select_db(DATABASE) 
     f= open(fileName)
     i = 0
     for line in f:
@@ -142,7 +147,7 @@ def importRatings():
     cursor.close()
 
 def selectTest():
-    conn = MySQLdb.connect(db='MoiveLens100K', host='localhost', user='root', passwd='1234')  
+    conn = MySQLdb.connect(db=DATABASE, host=HOST, user=USER, passwd=PW)  
     cursor = conn.cursor()
     select = """SELECT customer_id,movie_id,rating
                 FROM ratings WHERE customer_id = 1"""
@@ -154,7 +159,7 @@ def selectTest():
     
 
 def exportToCSV():
-    conn = MySQLdb.connect(db='MoiveLens100K', host='localhost', user='root', passwd='1234')  
+    conn = MySQLdb.connect(db=DATABASE, host=HOST, user=USER, passwd=PW)  
     cursor = conn.cursor()
     fileName = "'D:/dataset/ml-100k/userItemRating100KTest.csv'"
     sql_select = """SELECT customer_id,movie_id,rating 
@@ -170,7 +175,7 @@ def exportToCSV():
     cursor.close()
     
 def avgRatingtest():
-    conn = MySQLdb.connect(db='MoiveLens100K', host='localhost', user='root', passwd='1234')
+    conn = MySQLdb.connect(db=DATABASE, host=HOST, user=USER, passwd=PW)
     cursor = conn.cursor()
     query="""SELECT a1.movie_id,a1.rating,a2.movie_id,a2.rating 
              FROM avg_ratings AS a1,avg_ratings AS a2
@@ -188,6 +193,7 @@ def main():
      calculateAvgRating()
      createTableForUserAvgRating()
      calculateUserAvgRating()
+     print 'success'
 #     userAvgratingTest()
 #     segmentTest()
 #     selectTest()

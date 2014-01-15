@@ -1,0 +1,8 @@
+1. dataset comes from "MovieLens 100k": http://grouplens.org/datasets/movielens/
+dataset file is "u.data". If the 'u.data' in github doesn't work, please download
+
+2. install 'numpy' and 'python-mysql' package
+
+3. set up 'u.data' file in DATASET_PATH and database config 'databaseConfig.py'
+
+4. run 'ItemBasedRS.py', whose main function gives a demo to return first 20 movies' predictions for user 1 

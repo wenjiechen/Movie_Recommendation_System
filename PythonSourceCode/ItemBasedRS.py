@@ -8,17 +8,20 @@ import sys
 import operator
 import numpy as np 
 import math
+import databaseConfig
 
 MAX = sys.maxint
 MIN = -MAX
-# DB = 'MoiveLens10M'
-# DB = 'MoiveLens1M'
-DB = 'MoiveLens100K';
 UNG = 6040 
 ING = 3952
 
+DB = databaseConfig.DATABASE
+HOST = databaseConfig.HOST
+USER = databaseConfig.USER
+PW = databaseConfig.PW
+
 def executeSql(query):
-    conn = db.connect(db=DB, host='localhost', user='root', passwd='1234')
+    conn = db.connect(db=DB, host=HOST, user=USER, passwd=PW)
     cursor = conn.cursor()
     cursor.execute(query)
     res = cursor.fetchall()
@@ -170,7 +173,7 @@ def predicitScoresForOneUser(uid,mids,similarity = 'p'):
         print 'mid: %d, predictions: %f' %(mid,predictions[mid])
     return predictions
 
-def test2():
+def demo():
     movie_num = 20
     uid = 1
     print 'get the predictions of first %d movies for user %d' %(movie_num,uid)
@@ -186,7 +189,7 @@ def test():
     print 'predictions',predictions
 
 def main():
-    test2()
+    demo()
 
 if __name__ == '__main__':
     main()
