@@ -19,4 +19,6 @@ dataset file is "u.data". If the 'u.data' in github doesn't work, please downloa
 
 3. set up 'u.data' file in DATASET_PATH and database config 'databaseConfig.py'
 
-4. run 'ItemBasedRS.py', whose main function gives a demo() to return first 20 movies' predictions for user 1, and test() to return all moives' predictions for user 1 
+4. run 'createDBMLFor100K' to create database 
+
+5. run 'ItemBasedRS.py', whose main function gives a demo() to return first 20 movies' predictions for user 1, and test() to return all moives' predictions for user 1 
