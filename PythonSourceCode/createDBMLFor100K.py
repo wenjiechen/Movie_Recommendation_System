@@ -10,8 +10,10 @@ import os
 userNumG = 6040 
 itemNumG = 3952
 
+DATASET_PATH = 'D:/MovieLens_dataset/ml-100k/u.data'
 
 def createTables():
+    print 'create table "ratings" in database "MoiveLens100K"'
     conn = MySQLdb.connect(host='localhost', user='root', passwd='1234')  
     cursor = conn.cursor()  
     cursor.execute(""" DROP DATABASE IF EXISTS `MoiveLens100K`""")
@@ -32,6 +34,7 @@ def createTables():
     cursor.close()
     
 def createTableForAvgRating():
+    print 'create "avg_ratings" table'
     conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
     cursor = conn.cursor()
     cursor.execute(""" DROP TABLE IF EXISTS `avg_ratings`""")
@@ -45,6 +48,7 @@ def createTableForAvgRating():
     cursor.close()
 
 def createTableForUserAvgRating():
+    print 'create talbe "user_avg_ratings"'
     conn = MySQLdb.connect(db = 'MoiveLens100K', host = 'localhost',user ='root',passwd = '1234')
     cursor = conn.cursor()
     cursor.execute(""" DROP TABLE IF EXISTS `user_avg_ratings`""")
@@ -71,8 +75,8 @@ def calculateUserAvgRating():
             insertSql = """INSERT INTO `user_avg_ratings` (`customer_id`,`rating`)
                  VALUES (%d,%f);""" %(uid,avg)
             cursor.execute(insertSql)
-#             if uid % 1000 == 0:
-            print avg,uid
+            if uid % 100 == 0:
+                print 'process data %d' %uid
     cursor.close()
 
 def userAvgratingTest():
@@ -101,8 +105,8 @@ def calculateAvgRating():
             insertSql = """INSERT INTO `avg_ratings` (`movie_id`,`rating`)
                  VALUES (%d,%f);""" %(mid,avg)
             cursor.execute(insertSql)
-            if mid % 1000 == 0:
-                print avg,mid
+            if mid % 300 == 0:
+                print 'process data %d' %mid
     cursor.close()
 
 
@@ -113,7 +117,8 @@ def segmentTest():
     print v
     
 def importRatings():
-    fileName = 'D:/MovieLens_dataset/ml-100k/u.data'
+    print 'import rating from dataset'
+    fileName = DATASET_PATH
     conn = MySQLdb.connect(host='localhost', user='root', passwd='1234')
     cursor = conn.cursor()
     conn.select_db('MoiveLens100K') 
@@ -121,7 +126,7 @@ def importRatings():
     i = 0
     for line in f:
         i +=1  
-        if i % 100000 == 0:
+        if i % 30000 == 0:
             print 'process data in line %d' % (i)  # for logging purpose   
         line =line.strip()
         try:
