@@ -1,20 +1,21 @@
-Movie_Recommendation_System
-===========================
+Movie Recommendation System
+---
+Recommender systems, which can help customers to find potential preference, have been successfully applied in e-commerce web sites, such as Amazon and Netflix.
+In this lab, we implemented Collaborative Filtering using Mahout and Python respectively, and used `Movie Lens dataset` to test and training.CF algorithms calculate similarities among users and items based on users’ rating history, and recommend the top-N similar items.
 
-Movie Recommendation System for Project of Foundations of Machine Learning @ NYU
+Install
+---
+####python version on Ubuntu
 
-config python code on ubuntu
+* **dataset** - comes from [MovieLens](http://grouplens.org/datasets/movielens/). Dataset file is "u.data". If the 'u.data' in github doesn't work, please download
 
-1. dataset comes from "MovieLens 100k": http://grouplens.org/datasets/movielens/
-dataset file is "u.data". If the 'u.data' in github doesn't work, please download
-
-2. install 'numpy' and 'python-mysqldb' package
+* install `numpy` and `python-mysqldb` package
 	
-	install 'numpy', you need gcc. If you don't have gcc,
+	- install 'numpy', you need gcc. If you don't have gcc,
 
-	command: sudo apt-get install build-essential python-dev
+	- command: sudo apt-get install build-essential python-dev
 	
-	Use pip install 'numpy', command: sudo pip install numpy
+	- Use pip install 'numpy', command: sudo pip install numpy
 
 	install 'python-mysqldb',command: sudo apt-get install python-mysqldb
 
