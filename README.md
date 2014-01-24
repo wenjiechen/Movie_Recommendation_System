@@ -8,9 +8,9 @@ Install
 ---
 ####python version on Ubuntu
 
-* **dataset** - comes from [MovieLens](http://grouplens.org/datasets/movielens/). Dataset file is "u.data". If the 'u.data' in github doesn't work, please download
+* **dataset** comes from [MovieLens](http://grouplens.org/datasets/movielens/). Dataset file is "u.data". If the 'u.data' in github doesn't work, please download
 
-* install `numpy` and `python-mysqldb` package
+* **install** `numpy` and `python-mysqldb` package
 	
 	- To install `numpy`, you need gcc. If you don't have gcc: `sudo apt-get install build-essential python-dev`
 	
@@ -18,8 +18,10 @@ Install
 
 	- Install `python-mysqldb`: `sudo apt-get install python-mysqldb`
 
-3. set up 'u.data' file in DATASET_PATH and database config 'databaseConfig.py'
+* **set up** 'u.data' file's path and database config in `databaseConfig.py`
 
-4. run 'createDBMLFor100K.py' to create database 
+Run
+---
+* **run** `createDBMLFor100K.py` to create database 
 
-5. run 'ItemBasedRS.py', whose main function gives a demo() to return first 20 movies' predictions for user 1, and test() to return all moives' predictions for user 1 
+* **run** `ItemBasedRS.py`, whose main function gives a demo() to return first 20 movies' predictions for user 1, and test() to return all moives' predictions for user 1.
